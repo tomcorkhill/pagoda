@@ -31,7 +31,9 @@ func (c *register) Get(ctx echo.Context) error {
 	page.Layout = templates.LayoutAuth
 	page.Name = templates.PageRegister
 	page.Title = "Register"
-	page.Form = registerForm{}
+	if c.Container.Config.App.AllowNewUserRegistration {
+		page.Form = registerForm{}
+	}
 
 	if form := ctx.Get(context.FormKey); form != nil {
 		page.Form = form.(*registerForm)
@@ -41,6 +43,13 @@ func (c *register) Get(ctx echo.Context) error {
 }
 
 func (c *register) Post(ctx echo.Context) error {
+
+	if !c.Container.Config.App.AllowNewUserRegistration {
+		// if form.Email != "tomcorkhill@gmail.com" {
+		msg.Warning(ctx, "You are not allowed to register! Naughty naughty, very naughty!")
+		return c.Redirect(ctx, routeNameLogin)
+		// }
+	}
 	var form registerForm
 	ctx.Set(context.FormKey, &form)
 

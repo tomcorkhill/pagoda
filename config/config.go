@@ -85,6 +85,7 @@ type (
 			Length     int
 		}
 		EmailVerificationTokenExpiration time.Duration
+		AllowNewUserRegistration         bool
 	}
 
 	// CacheConfig stores the cache configuration
