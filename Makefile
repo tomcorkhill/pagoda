@@ -66,6 +66,12 @@ stop:
 down:
 	$(DCO_BIN) down
 
+# Drop the Docker containers to wipe all data
+.PHONY: dev-down
+dev-down:
+	$(DCO_BIN) -f docker-compose.dev.yml down
+
+
 # Rebuild Docker containers to wipe all data
 .PHONY: reset
 reset:
