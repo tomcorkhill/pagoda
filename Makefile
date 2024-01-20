@@ -21,7 +21,10 @@ cache:
 .PHONY: cache-clear
 cache-clear:
 	docker exec -it pagoda_cache redis-cli flushall
-
+# Clear the dev cache
+.PHONY: dev-cache-clear
+dev-cache-clear:
+	docker exec -it dev_pagoda_cache redis-cli flushall
  # Connect to the test cache
 .PHONY: cache-test
 cache-test:
