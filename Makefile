@@ -26,6 +26,11 @@ cache-clear:
 .PHONY: cache-test
 cache-test:
 	docker exec -it pagoda_cache redis-cli -n 1
+# Up in dev mode with air live reload
+.PHONY: dev-up
+dev-up:
+	$(DCO_BIN) -f docker-compose.dev.yml up
+	sleep 3
 
 # Install Ent code-generation module
 .PHONY: ent-install
@@ -62,6 +67,11 @@ down:
 .PHONY: reset
 reset:
 	$(DCO_BIN) down
+	make up
+# Rebuild Docker containers to wipe all data in dev  mode
+.PHONY: dev-reset
+dev-reset:
+	$(DCO_BIN) -f docker-compose.dev.yml down
 	make up
 
 # Run the application
