@@ -61,6 +61,11 @@ up:
 stop:
 	$(DCO_BIN) stop
 
+# Stop the Docker containers
+.PHONY: dev-stop
+dev-stop:
+	$(DCO_BIN) -f docker-compose.dev.yml stop
+
 # Drop the Docker containers to wipe all data
 .PHONY: down
 down:
